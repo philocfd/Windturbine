@@ -10,7 +10,6 @@ cp ./system/decomposeParDict_pre ./system/decomposeParDict
 # Get number of processors from decomposePar dict
 nProc=$(getNumberOfProcessors)
 
-restore0Dir
 
 #Run blockMesh
 runApplication blockMesh
@@ -35,5 +34,3 @@ rm -rf log.decomposePar
 # Run topoSet
 runApplication topoSet
 
-# copy "points" file from 0/polyMesh to constant/polyMesh
-cp -fr 0/polyMesh/points constant/polyMesh/points
