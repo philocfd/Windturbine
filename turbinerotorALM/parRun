@@ -1,0 +1,29 @@
+#!/bin/bash
+#SBATCH -J parRun
+#SBATCH -p wzhcnormal
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=64
+module purge
+module load compiler/devtoolset/7.3.1
+module load mpi/openmpi/4.1.1/gcc-7.3.1
+export UCX_NET_DEVICES=mlx5_0:1
+export UCX_IB_PCI_BW=mlx5_0:100Gbs
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Use the correct decomposeParDict
+rm ./system/decomposeParDict
+cp ./system/decomposeParDict_solver ./system/decomposeParDict
+cp -r 0.orig 0
+nProc=$(getNumberOfProcessors)
+
+#Decompose case again
+runApplication decomposePar
+
+# Renumber meshto get a more diagonal system
+renumber_application="mpirun --oversubscribe -np $nProc renumberMesh -overwrite -parallel"
+runApplication $renumber_application
+mv log.mpirun log.renumberMesh
+
+

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J solverRun
+#SBATCH -J postRun
 #SBATCH -p wzhcnormal
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=64
@@ -16,8 +16,10 @@ nProc=$(getNumberOfProcessors)
 
 # Set solver name
 
-solver="mpirun --oversubscribe -np $nProc pimpleFoam -parallel"
+solver="mpirun --oversubscribe -np $nProc postProcess -func Q  -parallel"
 
 # Run the solver
 runApplication $solver 
-mv log.mpirun log.pimpleFoam
+runApplication reconstructPar
+runApplication foamToVTK
+mv log.mpirun log.Q

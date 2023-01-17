@@ -3,12 +3,12 @@
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 //TURBINE GEOMETRY
-hub_h		90; // Hub height
-hub_x		-5.0; // Turbine overhang
-D 			126.0; // Rotor diameter
+hub_h		142.6; // Hub height
+hub_x		-6.247; // Turbine overhang
+D 			248.688; // Rotor diameter
 R 			#calc "$D /2"; //Rotor radii
-span		61.5; // Blade length
-chord		3.4; // Mean chord
+span		122; // Blade length
+chord		3.5863; // Mean chord
 
 //DOMAIN DEFINITION
 height		#calc "$hub_h +2*$D";
@@ -17,9 +17,9 @@ size_0		12.8; //#calc "$D/15.75"; // Element size to use for refinement level ze
 size_x		#calc "$size_0 *sqrt(3.0)"; 
 
 //FLOWFIELD
-Ux				9.0; // Freestream
+Ux				9; // Freestream
 I 				0.02; //Turbulence intensity
-TSR				7.5; // Tip-speed ratio					
+TSR				10.70637; // Tip-speed ratio					
 period			#calc "2*M_PI*$R /($Ux *$TSR)"; // Blade rotation period
 
 //WIND SHEAR - LOG PROFILE
