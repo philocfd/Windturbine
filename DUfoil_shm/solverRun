@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -p wzhcnormal
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=32
+module purge
+
+# Source tutorial run functions
+module load compiler/devtoolset/7.3.1
+module load mpi/openmpi/4.1.1/gcc-7.3.1
+source /public/software/apps/OpenFOAM/9/openmpi-4.1.1-gcc-7.3.1/OpenFOAM-9/etc/bashrc
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm -r 0
+cp -r 0.org 0
+decomposePar
+
+mpirun simpleFoam -parallel
+
+
+
+
