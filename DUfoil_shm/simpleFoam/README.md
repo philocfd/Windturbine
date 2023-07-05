@@ -1,0 +1,1 @@
+Generate CFD mesh for DU foils that are commonly used in wind turbine blades, the snappyHexMesh tool is employed.
